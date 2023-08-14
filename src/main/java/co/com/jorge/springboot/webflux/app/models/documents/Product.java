@@ -25,6 +25,7 @@ public class Product {
     private Date createAt;
 
     @Valid
+    @NotNull
     private Category category;
 
     private String photo;
@@ -80,16 +81,18 @@ public class Product {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public Product setCategory(Category category) {
         this.category = category;
+        return this;
     }
 
     public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public Product setPhoto(String photo) {
         this.photo = photo;
+        return this;
     }
 
     @Override
