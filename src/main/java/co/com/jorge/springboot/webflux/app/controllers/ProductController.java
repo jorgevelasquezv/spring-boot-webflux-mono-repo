@@ -1,8 +1,8 @@
 package co.com.jorge.springboot.webflux.app.controllers;
 
+import co.com.jorge.springboot.webflux.app.models.documents.Category;
 import co.com.jorge.springboot.webflux.app.models.documents.Product;
 import co.com.jorge.springboot.webflux.app.models.services.ProductService;
-import com.fasterxml.jackson.core.JsonParseException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -126,4 +126,13 @@ public class ProductController {
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/find/product/name/{name}")
+    public Mono<ResponseEntity<Product>> findProductByName(@PathVariable String name){
+        return service.findProductByName(name).map(ResponseEntity::ok);
+    }
+
+    @GetMapping("/find/category/name/{name}")
+    public Mono<ResponseEntity<Category>> findCategoryByName(@PathVariable String name){
+        return service.findCategoryByName(name).map(ResponseEntity::ok);
+    }
 }

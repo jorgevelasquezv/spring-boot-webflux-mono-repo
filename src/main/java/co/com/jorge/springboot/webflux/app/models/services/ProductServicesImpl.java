@@ -54,6 +54,11 @@ public class ProductServicesImpl implements ProductService{
     }
 
     @Override
+    public Mono<Product> findProductByName(String name) {
+        return productRepository.findByName(name);
+    }
+
+    @Override
     public Flux<Category> findAllCategory() {
         return categoryRepository.findAll();
     }
@@ -71,5 +76,10 @@ public class ProductServicesImpl implements ProductService{
     @Override
     public Mono<Void> deleteCategory(Category category) {
         return categoryRepository.delete(category);
+    }
+
+    @Override
+    public Mono<Category> findCategoryByName(String name) {
+        return categoryRepository.findByName(name);
     }
 }
