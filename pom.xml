@@ -20,6 +20,8 @@
     <modules>
         <module>spring-boot-webflux-api-rest</module>
         <module>spring-boot-webflux-client</module>
+        <module>spring-boot-webflux-eureka-server</module>
+        <module>spring-boot-webflux-gateway</module>
     </modules>
 
 </project>

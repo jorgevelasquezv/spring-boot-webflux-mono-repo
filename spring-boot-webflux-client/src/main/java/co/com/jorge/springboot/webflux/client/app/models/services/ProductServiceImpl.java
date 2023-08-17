@@ -19,15 +19,16 @@ import java.util.Map;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private WebClient client;
+    private WebClient.Builder client;
 
-    public ProductServiceImpl(WebClient client) {
+    public ProductServiceImpl(WebClient.Builder client) {
         this.client = client;
     }
 
     @Override
     public Flux<Product> findAllProducts() {
         return client
+                .build()
                 .get()
                 .accept(MediaType.APPLICATION_JSON)
                 .exchangeToFlux(response -> response.bodyToFlux(Product.class));
@@ -38,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         return client
+                .build()
                 .get()
                 .uri("/{id}", params)
                 .accept(MediaType.APPLICATION_JSON)
@@ -48,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Mono<Product> createProduct(Product product) {
         return client
+                .build()
                 .post()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(product))
@@ -61,6 +64,7 @@ public class ProductServiceImpl implements ProductService {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         return client
+                .build()
                 .put()
                 .uri("/{id}", params)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -73,6 +77,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Mono<Void> deleteProduct(String id) {
         return client
+                .build()
                 .delete()
                 .uri("/{id}", Collections.singletonMap("id", id))
                 .accept(MediaType.APPLICATION_JSON)
@@ -86,6 +91,7 @@ public class ProductServiceImpl implements ProductService {
         body.asyncPart("file", file.content(), DataBuffer.class)
                 .headers(header -> header.setContentDispositionFormData("file", file.filename()));
         return client
+                .build()
                 .post()
                 .uri("/upload/photo/{id}", Collections.singletonMap("id", id))
                 .bodyValue(body.build())
